@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北京时间实时校准</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        .time-display { font-size: 2.5em; margin: 20px 0; color: #333; }
+        .date-display { font-size: 1.2em; color: #666; }
+        .week-display { color: #e74c3c; }
+        .timestamp-display { font-size: 1em; color: #3498db; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>LCRstem时间校准</h2>
+        <h3>北京时间实时校准（UTC+8）</h3>
+    </header>
+
+    <div class="container">
+        <div class="date-display">
+            <span id="year"></span>年
+            <span id="month"></span>月
+            <span id="date"></span>日
+            <span class="week-display" id="week"></span>
+        </div>
+        
+        <div class="time-display">
+            <span id="hours"></span>:
+            <span id="minutes"></span>:
+            <span id="seconds"></span>
+        </div>
+        <div class="timestamp-display">
+            时间戳：<span id="timestamp"></span>
+        </div>
+    </div>
+    <script>
+        function updateBeijingTime() {
+            const now = new Date();
+            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const beijingTime = new Date(utc + (3600000 * 8));
+            const year = beijingTime.getFullYear();
+            const month = (beijingTime.getMonth() + 1).toString().padStart(2, '0');
+            const date = beijingTime.getDate().toString().padStart(2, '0');
+            const hours = beijingTime.getHours().toString().padStart(2, '0');
+            const minutes = beijingTime.getMinutes().toString().padStart(2, '0');
+            const seconds = beijingTime.getSeconds().toString().padStart(2, '0');
+            const weekDays = ['日', '一', '二', '三', '四', '五', '六'];
+            const week = `星期${weekDays[beijingTime.getDay()]}`;
+            const timestamp = now.getTime();
+            document.getElementById('year').textContent = year;
+            document.getElementById('month').textContent = month;
+            document.getElementById('date').textContent = date;
+            document.getElementById('week').textContent = week;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+            document.getElementById('timestamp').textContent = timestamp;
+        }
+        updateBeijingTime();
+        setInterval(updateBeijingTime, 1000);
+    </script>
+    <footer>
+        <div style="font-size:.875em">实时北京时间服务</div>
+        <div style="font-size:.875em">© 2025 time.lcrstem.top</div>
+    </footer>
+</body>
+</html>
